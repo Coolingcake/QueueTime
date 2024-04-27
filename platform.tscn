@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://chy73e2j34l0u"]
+
+[node name="PlatformController" type="Node"]
+
+[node name="PlatformSprite" type="Sprite2D" parent="."]

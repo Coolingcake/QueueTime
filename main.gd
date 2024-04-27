@@ -20,6 +20,8 @@ func _ready():
 		platform.moveX(offsetX)
 
 	setup = false
+	
+	
 
 func _process(delta):
 	if Input.is_action_just_pressed("left"):
