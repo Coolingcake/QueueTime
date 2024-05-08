@@ -10,7 +10,7 @@ func _init(s):
 	
 func initialize():
 	if (side == -1):
-		pos = Vector2(((Global.width)/2) - Global.platformLength * 2, 0)
+		pos = Vector2(((Global.width)/2) - Global.platformLength / 2, 0)
 	elif (side == 0):
 		pos = Vector2((float(Global.width)/2) - (float(Global.platformLength)/2), 0)
 	elif (side == 1):
