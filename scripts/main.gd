@@ -1,7 +1,7 @@
 extends Node2D
 
 var platforms = []
-var stepCount = 0
+
 
 var r = RandomNumberGenerator.new()
 
@@ -15,7 +15,7 @@ func _ready():
 	for n in range(0, ((Global.height + Global.platformDistance) / Global.platformDistance)-1):
 		move()
 	print(platforms.size())
-	stepCount = 0
+	Global.stepCount = 0
 
 	var offsetX = (float(Global.width/2) - Global.platformLength) - (platforms[1].pos.x)
 
@@ -57,8 +57,11 @@ func move():
 	shift(platforms.size()-2, platforms.size()-1)
 	if (!setup):
 		platforms.remove_at(0)
-	stepCount += 1
+	Global.stepCount += 1
 	
+	
+func updateScore():
+	pass
 	
 	
 func die():
@@ -68,9 +71,9 @@ func die():
 	for n in range(0, ((Global.height + Global.platformDistance) / Global.platformDistance)-1):
 		move()
 	var offsetX = (float(Global.width/2) - Global.platformLength) - (platforms[1].pos.x)
-
 	for platform in platforms:
 		platform.moveX(offsetX)
+	Global.stepCount = 0
 	setup = false
 	print(platforms.size())
 	
