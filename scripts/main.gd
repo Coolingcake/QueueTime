@@ -2,10 +2,13 @@ extends Node2D
 
 var platforms = []
 
+var platform_count = 0
 
 var r = RandomNumberGenerator.new()
 
 var setup = true
+
+var platform_sprite_image = preload("res://scenes/platform_sprite.tscn")
 
 
 @onready var jumpSound = $JumpSound
@@ -34,6 +37,7 @@ func _process(delta):
 		movePlayer(0)
 	for platform in platforms:
 		platform.move(delta)
+		
 	queue_redraw()
 	
 
@@ -51,6 +55,7 @@ func movePlayer(direction):
 	return
 
 func move():
+	spawn_platform()
 	for platform in platforms:
 		platform.moveY(Global.platformDistance)
 	platforms.append(Platform.new(r.randi_range(-1,1)))
@@ -60,8 +65,17 @@ func move():
 	Global.stepCount += 1
 	
 	
-func updateScore():
-	pass
+func spawn_platform():
+	var platform_position = platforms[platforms.size() - 1]
+	var platform_sprite_image = platform_sprite_image.instantiate()
+	add_child(platform_sprite_image)
+	platform_count += 1
+	platform_sprite_image.position = platform_position.pos
+	platform_sprite_image.position.y = (1080 / 7) * platform_count
+	print(platform_count)
+		
+	
+	
 	
 	
 func die():
@@ -83,6 +97,7 @@ func shift(prev, post):
 	var postPlatform = platforms[post]
 	postPlatform.setX(platforms[prev].pos.x)
 	postPlatform.moveX(Global.platformLength * postPlatform.side)
+	
 
 func _draw():
 	for i in range(platforms.size()):
